@@ -9,8 +9,10 @@ class HomeController extends Controller
     public function index($name = '')
     {
         $user = $this->model('User');
-        $user->name = $name;
+        if ($user->getName() !== $name) {
+            $user->setWork('no work');
+        }
 
-        $this->view('home/index', compact('name'));
+        $this->view('home/index', $user);
     }
 }

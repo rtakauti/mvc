@@ -5,6 +5,9 @@ namespace StudioVisual\Core;
 class Controller
 {
 
+    private $view;
+
+
     public function model($model)
     {
         $class = "StudioVisual\Models\\$model";
@@ -13,7 +16,8 @@ class Controller
 
     public function view($view, $data = [])
     {
-        require_once '../app/views/' . $view . '.php';
+        $this->view = new View($view, $data);
+        $this->view->show();
     }
 
 }

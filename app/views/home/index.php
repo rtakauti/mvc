@@ -1,1 +1,0 @@
-Home <?= $data['name'] ?>
