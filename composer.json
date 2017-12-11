@@ -1,0 +1,16 @@
+{
+  "name": "studioVisual/mvc",
+  "description": "Exercicio de MVC",
+  "authors": [
+    {
+      "name": "Rubens Takauti",
+      "email": "rtakauti@studiovisual.com.br"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "StudioVisual\\": "app/"
+    }
+  },
+  "require": {}
+}
