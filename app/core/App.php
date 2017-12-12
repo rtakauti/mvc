@@ -4,34 +4,32 @@ namespace StudioVisual\Core;
 
 class App
 {
-    protected $controller = 'home';
+    protected $controller = 'HomeController';
     protected $method = 'index';
     protected $params = [];
+    protected $url = [];
 
     public function __construct()
     {
-        if (!isset($_GET['url'])) {
-            return;
+        if (isset($_GET['url'])) {
+            $this->url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+            $class = ucfirst($this->url[0]);
         }
 
-        $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
-
-        $class = ucfirst($url[0]) . 'Controller';
-
-        if (file_exists("../app/controllers/{$class}.php")) {
-            $this->controller = $class;
-            unset($url[0]);
+        if (isset($class) && file_exists("../app/controllers/{$class}Controller.php")) {
+            $this->controller = $class.'Controller';
+            unset($this->url[0]);
         }
 
-        $class = 'StudioVisual\Controllers\\' . $this->controller;
+        $class = 'StudioVisual\Controllers\\'.$this->controller;
         $this->controller = new $class;
 
-        if (isset($url[1]) && method_exists($this->controller, $url[1])) {
-            $this->method = $url[1];
-            unset($url[1]);
+        if (isset($this->url[1]) && method_exists($this->controller, $this->url[1])) {
+            $this->method = $this->url[1];
+            unset($this->url[1]);
         }
 
-        $this->params = $url ? array_values($url) : [];
+        $this->params = $this->url ? array_values($this->url) : [];
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
