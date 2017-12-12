@@ -10,7 +10,10 @@
   "autoload": {
     "psr-4": {
       "StudioVisual\\": "app/"
-    }
+    },
+    "files": [
+      "app/Core/routes.php"
+    ]
   },
   "require": {}
 }
