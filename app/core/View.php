@@ -21,7 +21,7 @@ class View
 
     private function replace($tag)
     {
-        return $this->data->{$tag[1]};
+        return $this->data->{'get'.ucfirst($tag[1])}();
     }
 
     public function show()

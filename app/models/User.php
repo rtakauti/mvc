@@ -5,8 +5,8 @@ namespace StudioVisual\Models;
 
 class User
 {
-    public $name;
-    public $work;
+    private $name;
+    private $work;
 
     public function __construct()
     {
