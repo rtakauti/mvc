@@ -11,5 +11,5 @@ $route->get('/', HomeController::class, 'index');
 $route->get('/home', HomeController::class, 'index');
 
 $route->get('/contact', ContactController::class, 'index');
-$route->get('/animal', AnimalController::class, 'index');
+$route->get('/animal', AnimalController::class, 'name');
 

@@ -15,13 +15,14 @@ use stdClass;
  */
 abstract class AnimalAbstract implements AnimalInterface, AlimentacaoInterface
 {
+    protected $genero =  [1=>'Macho', 2=>'Fêmea'];
     protected static $quantidade = 0;
     protected $attributes;
 
     public function __construct()
     {
         $this->attributes = new stdClass;
-        $this->attributes->genero = random_int(AnimalGenero::MASCULINO, AnimalGenero::FEMININO);
+        $this->attributes->genero = random_int(AnimalGenero::MACHO, AnimalGenero::FEMEA);
         $this->attributes->isVivo = true;
         ++static::$quantidade;
         ++self::$quantidade;
@@ -65,6 +66,11 @@ abstract class AnimalAbstract implements AnimalInterface, AlimentacaoInterface
         return $this;
     }
 
+    public function getGenero()
+    {
+        return $this->genero[$this->attributes->genero];
+    }
+
 
     /**
      * @param AnimalInterface $animal
@@ -89,7 +95,7 @@ abstract class AnimalAbstract implements AnimalInterface, AlimentacaoInterface
      */
     public function reproduzir()
     {
-        $isFeminino = AnimalGenero::FEMININO === $this->attributes->genero;
+        $isFeminino = AnimalGenero::FEMEA === $this->attributes->genero;
         $hasParceiro = isset($this->attributes->parceiro);
         if ($isFeminino && $hasParceiro) {
             $filhotes = [];

@@ -8,12 +8,12 @@ use StudioVisual\Lib\Enum\AnimalGenero;
 
 class AnimalController extends Controller
 {
-    public function index($name = '')
+    public function name($name = '', $gender = 1)
     {
         $pingo = new CachorroDomestico();
         $pingo->setNome($name);
-        $pingo->setGenero(AnimalGenero::MASCULINO);
+        $pingo->setGenero($gender);
 
-        $this->view('animal/index', $pingo);
+        $this->view('animal/cachorro', $pingo);
     }
 }
