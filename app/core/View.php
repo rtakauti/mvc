@@ -21,7 +21,7 @@ class View
     public function show()
     {
         echo preg_replace_callback('/{{(.*?)[\|\|.*?]?}}/', function ($tag) {
-            return $this->data->{'get' . $tag[1]}();
+            return $this->data->{$tag[1]};
         }, $this->content);
     }
 }

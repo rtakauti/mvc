@@ -2,10 +2,11 @@
 
 namespace StudioVisual\Core;
 
+
 class Controller
 {
 
-    public function model($model)
+    public function model($model): Model
     {
         $class = "StudioVisual\Models\\$model";
         return new $class;

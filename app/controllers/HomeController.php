@@ -9,9 +9,12 @@ class HomeController extends Controller
     public function index($name = '', $surname = '')
     {
         $user = $this->model('User');
-        $user->setName($name);
-        $user->setSurname($surname);
+        $user->name = $name;
+        $user->surname = $surname;
         $user->insert();
+        echo '<pre>';
+//        print_r($user->selectAll());
+        print_r($user->selectById(1));
         $this->view('home/index', $user);
     }
 }

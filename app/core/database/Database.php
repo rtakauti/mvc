@@ -4,35 +4,44 @@
 namespace StudioVisual\Core\Database;
 
 
+use StudioVisual\Core\Model;
+
 class Database
 {
-    protected
-        $conn,
-        $table,
-        $fields,
-        $replace,
-        $params = [];
-    public
-        $attributes = [];
 
-    public function __construct()
+    public static function getFileds(Model $model, int $type = OutputType::ARRAY)
     {
-        $this->conn = Connection::getConnection();
-        $select = $this->conn->query('SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = "mvc" AND TABLE_NAME = "users" AND EXTRA <> "auto_increment"');
-        $this->fields = $select->fetchAll(\PDO::FETCH_COLUMN, 0);
-        $this->replace = array_map(function ($field) {
-            return ':' . $field;
-        }, $this->fields);
+        $fields = Connection::getConnection()
+            ->query('
+                    SELECT COLUMN_NAME 
+                    FROM INFORMATION_SCHEMA.COLUMNS 
+                    WHERE TABLE_SCHEMA = "' . Connection::DBNAME . '" 
+                    AND TABLE_NAME = "' . $model->getTable() . '" 
+                    AND EXTRA <> "auto_increment"
+            ')->fetchAll(\PDO::FETCH_COLUMN, 0);
+        if ($type === OutputType::STRING) {
+            $fields = implode(', ', $fields);
+        }
+        return $fields;
     }
 
-    public function insert()
+    public static function getReplacement(Model $model, int $type = OutputType::ARRAY)
     {
-        foreach ($this->fields as $field) {
-            $this->params[":$field"] = $this->{'get'.$field}();
-       }
-        $query = "INSERT INTO {$this->table} (" . implode(', ', $this->fields) . ") VALUES (" . implode(', ',
-                $this->replace) . ")";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute($this->params);
+        $fields = array_map(function ($field) {
+            return ':' . $field;
+        }, static::getFileds($model, OutputType::ARRAY));
+        if ($type === OutputType::STRING) {
+            $fields = implode(', ', $fields);
+        }
+        return $fields;
+    }
+
+    public static function getParams(Model $model)
+    {
+        $params = [];
+        foreach (static::getFileds($model, OutputType::ARRAY) as $field) {
+            $params[":$field"] = $model->{$field};
+        }
+        return $params;
     }
 }
