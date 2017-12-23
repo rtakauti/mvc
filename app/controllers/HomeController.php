@@ -6,13 +6,12 @@ use StudioVisual\Core\Controller;
 
 class HomeController extends Controller
 {
-    public function index($name = '', $work ='')
+    public function index($name = '', $surname = '')
     {
         $user = $this->model('User');
-        if ($user->getName() !== $name) {
-            $user->setWork('no work');
-        }
-
+        $user->setName($name);
+        $user->setSurname($surname);
+        $user->insert();
         $this->view('home/index', $user);
     }
 }

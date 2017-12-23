@@ -3,32 +3,29 @@
 namespace StudioVisual\Models;
 
 
-class User
-{
-    private $name;
-    private $work;
+use StudioVisual\Core\Database\Database;
 
-    public function __construct()
-    {
-        $this->name = 'Rubens';
-        $this->work = 'StudioVisual';
-    }
+class User extends Database
+{
+    protected
+        $table = 'users';
+
 
     /**
      * @return string
      */
-    public function getWork()
+    public function getSurname()
     {
-        return $this->work;
+        return $this->attributes['surname'];
     }
 
     /**
-     * @param string $work
+     * @param string $surname
      * @return User
      */
-    public function setWork($work)
+    public function setSurname($surname)
     {
-        $this->work = $work;
+        $this->attributes['surname'] = $surname;
         return $this;
     }
 
@@ -38,7 +35,7 @@ class User
      */
     public function getName()
     {
-        return $this->name;
+        return $this->attributes['name'];
     }
 
     /**
@@ -47,10 +44,9 @@ class User
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->attributes['name'] = $name;
         return $this;
     }
-
 
 
 }
