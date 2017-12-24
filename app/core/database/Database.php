@@ -44,4 +44,13 @@ class Database
         }
         return $params;
     }
+
+    public static function getUpdateParam(Model $model)
+    {
+        return implode(', ', array_map(function ($field){
+            return "$field = :$field";
+        }, static::getFileds($model, OutputType::ARRAY)));
+    }
+
+
 }

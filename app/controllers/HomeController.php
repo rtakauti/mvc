@@ -11,6 +11,7 @@ class HomeController extends Controller
         $user = $this->model('User');
         $user->name = $name;
         $user->surname = $surname;
+        $user->update(1);
         $user->insert();
         echo '<pre>';
 //        print_r($user->selectAll());

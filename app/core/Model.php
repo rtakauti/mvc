@@ -44,4 +44,18 @@ abstract class Model
         $stmt->execute(Database::getParams($this));
         return $this;
     }
+
+    public function update($id)
+    {
+        $stmt = Connection::getConnection()
+            ->prepare("
+                UPDATE {$this->table} 
+                SET ".Database::getUpdateParam($this)."
+                 WHERE id = :id
+            ");
+        $stmt->execute(array_merge([':id' => $id], Database::getParams($this)));
+        return $this;
+    }
+
+
 }
