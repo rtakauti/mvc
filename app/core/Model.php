@@ -50,10 +50,21 @@ abstract class Model
         $stmt = Connection::getConnection()
             ->prepare("
                 UPDATE {$this->table} 
-                SET ".Database::getUpdateParam($this)."
-                 WHERE id = :id
+                SET " . Database::getUpdateParam($this) . " 
+                WHERE id = :id
             ");
         $stmt->execute(array_merge([':id' => $id], Database::getParams($this)));
+        return $this;
+    }
+
+    public function delete($id)
+    {
+        $stmt = Connection::getConnection()
+            ->prepare("
+                DELETE FROM {$this->table} 
+                WHERE id = :id
+            ");
+        $stmt->execute([':id' => $id]);
         return $this;
     }
 

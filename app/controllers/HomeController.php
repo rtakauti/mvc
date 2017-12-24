@@ -12,6 +12,7 @@ class HomeController extends Controller
         $user->name = $name;
         $user->surname = $surname;
         $user->update(1);
+        $user->delete(2);
         $user->insert();
         echo '<pre>';
 //        print_r($user->selectAll());
