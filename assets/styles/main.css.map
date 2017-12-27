@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AACA,gBAAiB;EACf,KAAK,ECAM,OAAgB",
-"sources": ["layout/home.scss","abstracts/_variables.scss"],
+"mappings": "AACA,gBAAiB;EACf,KAAK,ECAM,OAAiB",
+"sources": ["layout/_home.scss","abstracts/_variables.scss"],
 "names": [],
 "file": "main.css"
 }
