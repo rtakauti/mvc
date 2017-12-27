@@ -29,8 +29,9 @@ class View
 <head>
     <meta charset="utf-8">
     <title>$this->title</title>
-    <base href="/public/css/">
+    <base href="/dist/styles/">
     <link href="main.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
 </head>
 <body>
 HEADER;
@@ -51,10 +52,10 @@ FOOTER;
             echo 'Erro ao renderizar pagina';
             return false;
         }
-        echo $this->header();
-        echo preg_replace_callback('/{{(.*?)[\|\|.*?]?}}/', function ($tag) {
+        echo $this->header().
+        preg_replace_callback('/{{(.*?)[\|\|.*?]?}}/', function ($tag) {
             return $this->data->{$tag[1]};
-        }, $this->content);
-        echo $this->footer();
+        }, $this->content).
+        $this->footer();
     }
 }
