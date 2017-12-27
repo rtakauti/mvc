@@ -14,9 +14,9 @@ class HomeController extends Controller
         $user->update(1);
         $user->delete(2);
         $user->insert();
-        echo '<pre>';
+//        echo '<pre>';
 //        print_r($user->selectAll());
-        print_r($user->selectById(1));
+//        print_r($user->selectById(1));
         $this->view('home/index', $user);
     }
 }
