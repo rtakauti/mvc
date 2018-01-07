@@ -29,9 +29,12 @@ class View
 <head>
     <meta charset="utf-8">
     <title>$this->title</title>
-    <base href="/dist/styles/">
-    <link href="main.css" rel="stylesheet" type="text/css" />
+    <base href="/public/dist/">
+    <script src="vendor.bundle.js"></script>
+    <script src="bundle.js"></script>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+    
 </head>
 <body>
 HEADER;
