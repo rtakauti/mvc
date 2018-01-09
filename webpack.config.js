@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const extractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const optimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const SpritesmithPlugin = require('webpack-spritesmith');
 
 let plugins = [];
 
@@ -20,6 +21,20 @@ plugins.push(new webpack.ProvidePlugin({
     Popper: ['popper.js', 'default']
 }));
 
+plugins.push(new SpritesmithPlugin({
+        src: {
+            cwd: path.resolve(__dirname, 'public/assets/images/icons'),
+            glob: '*.png',
+        },
+        target: {
+            image: path.resolve(__dirname, 'public/dist/images/sprite.png'),
+            css: path.resolve(__dirname, 'public/assets/styles/icons/_sprite.scss'),
+        },
+        apiOptions: {
+            cssImageRef: "/public/dist/images/sprite.png",
+        },
+
+    }));
 
 if (process.env.NODE_ENV === 'production') {
     plugins.push(new UglifyJsPlugin({
