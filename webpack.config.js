@@ -4,6 +4,8 @@ const extractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const optimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpritesmithPlugin = require('webpack-spritesmith');
+const ImageminPlugin  = require('imagemin-webpack-plugin').default;
+const CopyWebpackPlugin  = require('copy-webpack-plugin');
 
 let plugins = [];
 
@@ -59,6 +61,20 @@ if (process.env.NODE_ENV === 'production') {
     }));
 }
 
+plugins.push(new CopyWebpackPlugin([{
+    from: 'public/assets/images/**'
+}]));
+
+plugins.push(new ImageminPlugin({
+    // disable: process.env.NODE_ENV === 'production',
+    test: 'public/assets/images/**',
+    pngquant: {
+        quality: '95-100'
+    },
+    optipng: {
+        optimizationLevel: 9
+    }
+}));
 module.exports = {
     entry: {
         app: './public/app.js',
