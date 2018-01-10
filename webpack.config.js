@@ -29,7 +29,7 @@ plugins.push(new SpritesmithPlugin({
             glob: '*.png',
         },
         target: {
-            image: path.resolve(__dirname, 'public/dist/images/sprite.png'),
+            image: path.resolve(__dirname, 'public/assets/images/sprite.png'),
             css: path.resolve(__dirname, 'public/assets/styles/icons/_sprite.scss'),
         },
         apiOptions: {
@@ -62,18 +62,19 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 plugins.push(new CopyWebpackPlugin([{
-    from: 'public/assets/images/**'
+    from: 'public/assets/images/',
+    to: 'images/'
 }]));
 
 plugins.push(new ImageminPlugin({
-    // disable: process.env.NODE_ENV === 'production',
-    test: 'public/assets/images/**',
+    disable: process.env.NODE_ENV !== 'production',
     pngquant: {
         quality: '95-100'
     },
     optipng: {
         optimizationLevel: 9
-    }
+    },
+    jpegtran: { progressive: true }
 }));
 module.exports = {
     entry: {
