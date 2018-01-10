@@ -6,8 +6,17 @@ const optimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpritesmithPlugin = require('webpack-spritesmith');
 const ImageminPlugin  = require('imagemin-webpack-plugin').default;
 const CopyWebpackPlugin  = require('copy-webpack-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 let plugins = [];
+
+plugins.push(new BrowserSyncPlugin({
+    host: 'localhost',
+    port: 3000,
+    server: {
+        baseDir: ['./public/assets/**']
+    }
+}));
 
 plugins.push(new extractTextPlugin('styles.css'));
 
@@ -76,6 +85,7 @@ plugins.push(new ImageminPlugin({
     },
     jpegtran: { progressive: true }
 }));
+
 module.exports = {
     entry: {
         app: './public/app.js',
@@ -83,7 +93,9 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'public/dist')
+        path: path.resolve(__dirname, 'public/dist'),
+        pathinfo: true,
+        publicPath: 'http://localhost:3000'
     },
     module: {
         rules: [
@@ -131,5 +143,6 @@ module.exports = {
             }
         ]
     },
-    plugins
+    plugins,
+    devtool: "source-map"
 };
