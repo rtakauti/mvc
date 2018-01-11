@@ -121,6 +121,19 @@ module.exports = {
                 }
             },
             {
+                test: require.resolve('jquery'),
+                use: [
+                    {
+                        loader: 'expose-loader',
+                        query: 'jQuery',
+                    },
+                    {
+                        loader: 'expose-loader',
+                        query: '$',
+                    },
+                ]
+            },
+            {
                 test: /\.js$/,
                 use: ["source-map-loader"],
                 enforce: "pre"
