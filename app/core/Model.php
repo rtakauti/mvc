@@ -12,7 +12,21 @@ abstract class Model
 {
     protected
         $table;
+    private
+        $data = [];
 
+
+    public function __get($name)
+    {
+        if (array_key_exists($name, $this->data)) {
+            return $this->data[$name];
+        }
+    }
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
 
     public function getTable()
     {
@@ -33,6 +47,7 @@ abstract class Model
         $stmt->setFetchMode(\PDO::FETCH_CLASS, static::class);
         return $stmt->fetch();
     }
+
 
     public function insert()
     {
