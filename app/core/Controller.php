@@ -6,6 +6,11 @@ namespace StudioVisual\Core;
 class Controller
 {
 
+    public function __destruct()
+    {
+        die();
+    }
+
     public function model($model): Model
     {
         $class = "StudioVisual\Models\\$model";

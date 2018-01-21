@@ -1,8 +1,6 @@
 <?php
 
-
 namespace StudioVisual\Core;
-
 
 use StudioVisual\Core\Database\Connection;
 use StudioVisual\Core\Database\Database;
@@ -28,24 +26,37 @@ abstract class Model
         $this->data[$name] = $value;
     }
 
+    public function __call($name, $arguments)
+    {
+        if (0 === strpos($name, 'get')) {
+            $key = strtolower(str_replace('get', '', $name));
+            return $this->data[$key];
+        }
+
+        if (0 === strpos($name, 'set')) {
+            $key = strtolower(str_replace('set', '', $name));
+            $this->data[$key] = $arguments[0];
+        }
+
+        if (0 === strpos($name, 'selectBy')) {
+            $field = strtolower(str_replace('selectBy', '', $name));
+            $stmt = Connection::getConnection()->prepare("SELECT * FROM {$this->table} WHERE {$field} = :{$field}");
+            $stmt->execute([":$field" => $arguments[0]]);
+            return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
+        }
+    }
+
     public function getTable()
     {
         return $this->table;
     }
+
 
     public function selectAll()
     {
         $stmt = Connection::getConnection()->prepare("SELECT * FROM {$this->table}");
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_CLASS, static::class);
-    }
-
-    public function selectById(int $id)
-    {
-        $stmt = Connection::getConnection()->prepare("SELECT * FROM {$this->table} WHERE id = :id");
-        $stmt->execute([':id' => $id]);
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, static::class);
-        return $stmt->fetch();
     }
 
 

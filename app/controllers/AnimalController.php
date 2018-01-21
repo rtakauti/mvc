@@ -2,17 +2,17 @@
 
 namespace StudioVisual\Controllers;
 
-use StudioVisual\Lib\Animais\CachorroDomestico;
 use StudioVisual\Core\Controller;
-use StudioVisual\Lib\Enum\AnimalGenero;
+use StudioVisual\Lib\Animais\CachorroDomestico;
 
 class AnimalController extends Controller
 {
-    public function name($name = '', $gender = 1)
+    public function name(string $param = '')
     {
+        $param = explode('/', substr($param, 1));
         $pingo = new CachorroDomestico();
-        $pingo->setNome($name);
-        $pingo->setGenero($gender);
+        $pingo->setNome($param[0]);
+        $pingo->setGenero(1);
 
         $this->view('animal/cachorro', $pingo);
     }

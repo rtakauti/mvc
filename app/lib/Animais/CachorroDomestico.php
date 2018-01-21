@@ -12,7 +12,12 @@ class CachorroDomestico extends CaninoAbstract implements DomesticoInterface
     protected static $quantidade = 0;
     
     use DomesticoTrait;
-    
+
+    public function __get($name)
+    {
+        return $this->{'get'.$name}();
+    }
+
     public function reproduzir()
     {
         try {
