@@ -12,7 +12,7 @@
       "StudioVisual\\": "app/"
     },
     "files": [
-      "app/Core/routes.php"
+      "app/core/routes.php"
     ]
   },
   "require": {}

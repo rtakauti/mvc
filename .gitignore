@@ -1,2 +1,9 @@
 .idea/
 vendor/
+node_modules/
+dist/
+/public/css/
+public/assets/styles/main.css
+public/assets/styles/main.css.map
+public/assets/images/sprite.png
+sprite.png

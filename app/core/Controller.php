@@ -2,13 +2,16 @@
 
 namespace StudioVisual\Core;
 
+
 class Controller
 {
 
-    private $view;
+    public function __destruct()
+    {
+        die();
+    }
 
-
-    public function model($model)
+    public function model($model): Model
     {
         $class = "StudioVisual\Models\\$model";
         return new $class;
@@ -16,8 +19,7 @@ class Controller
 
     public function view($view, $data = [])
     {
-        $this->view = new View($view, $data);
-        $this->view->show();
+        (new View($view, $data))->show();
     }
 
 }
