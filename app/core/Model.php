@@ -62,12 +62,16 @@ abstract class Model
 
     public function insert()
     {
-        $stmt = Connection::getConnection()
-            ->prepare("
+        $db = Connection::getConnection();
+        $stmt =
+            $db->prepare("
                 INSERT INTO {$this->table} (" . Database::getFileds($this, OutputType::STRING) . ") 
                 VALUES (" . Database::getReplacement($this, OutputType::STRING) . ")
             ");
         $stmt->execute(Database::getParams($this));
+        if ($stmt->errorInfo()[2]) {
+            die($stmt->errorInfo()[2]);
+        }
         return $this;
     }
 
