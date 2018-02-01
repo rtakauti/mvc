@@ -11,7 +11,7 @@ class Route
     public function __construct()
     {
         $this->verb = $_SERVER['REQUEST_METHOD'];
-        $this->route = $_SERVER['REQUEST_URI'];
+        $this->route = trim($_SERVER['REQUEST_URI'], '/');
     }
 
     public function get($path, $controller, $method)
@@ -20,8 +20,8 @@ class Route
             return false;
         }
 
-        if ('/' === $this->route) {
-            (new \StudioVisual\Controllers\HomeController)->index();
+        if (!$this->route) {
+            (new \StudioVisual\Controllers\HomeController)->index('/Rubens/Takauti/100');
         }
 
         if (strpos($this->route, $path) !== 0) {

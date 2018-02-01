@@ -6,13 +6,13 @@ use StudioVisual\Core\Controller;
 
 class HomeController extends Controller
 {
-    public function index(string $param = '')
+    public function index(string $params = '')
     {
-        $param = explode('/', substr($param,1));
+        $param = explode('/', substr($params, 1));
         $user = $this->model('User');
-        $user->name = $param[0];
-        $user->surname = $param[1];
-        $user->age = $param[2];
+        $user->name = array_key_exists(0,$param) && $param[0]?$param[0]:'Rubens';
+        $user->surname = array_key_exists(1,$param)?$param[1]:'Takauti';
+        $user->age = array_key_exists(2,$param)?$param[2]:100;
         $user->update(1);
         $user->delete(2);
         $user->insert();
