@@ -1,6 +1,5 @@
 <?php
 
-
 namespace StudioVisual\Core;
 
 
@@ -51,9 +50,27 @@ FOOTER;
     public function show()
     {
         echo $this->header() .
-            preg_replace_callback('/{{(.*?)[\|\|.*?]?}}/', function ($tag) {
-                return $this->data->{$tag[1]};
-            }, $this->content) .
+            preg_replace_callback_array([
+                '/@endLoop:(\w+)/s' => function () {
+                    return '';
+                },
+                '/@loop:(\w+)(.*+)/s' => function ($placeHolder) {
+                    return implode('', array_map(function ($attribute) use  ($placeHolder){
+                       return  preg_replace_callback('/{{(\w+)}}/', function ($match) use ($attribute) {
+                           return $attribute[$match[1]];
+                       }, $placeHolder[2]);
+                    },$this->data[$placeHolder[1]]));
+                },
+                '/{{(\w+)\.(\w+)}}/' => function ($placeHolder) {
+                    if (is_object($this->data[$placeHolder[1]])) {
+                        return $this->data[$placeHolder[1]]->{$placeHolder[2]};
+                    }
+                    return $this->data[$placeHolder[1]][$placeHolder[2]];
+                },
+                '/{{(\w+)}}/' => function ($placeHolder) {
+                    return $this->data[$placeHolder[1]];
+                },
+            ], $this->content) .
             $this->footer();
     }
 }

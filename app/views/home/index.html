@@ -3,8 +3,14 @@
         <img src="/public/dist/images/logo.png" alt="">
     </div>
     <h1 class="welcome">
-        <span> Oi {{name}} {{surname}}</span>
-        <span>Bem vindo ao Dojo da Studio Visual</span>
+        <span> Oi {{user.name}} {{user.surname}}</span>
+        <span>Bem vindo à {{cidade}}, {{estado}}</span>
     </h1>
 </header>
+@loop:users
+<article>
+    <h2>Outros integrantes </h2>
+    <h2>{{name}}, {{surname}}</h2>
+</article>
+@endLoop:users
 

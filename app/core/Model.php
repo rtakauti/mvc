@@ -26,7 +26,7 @@ abstract class Model
         $this->data[$name] = $value;
     }
 
-    public function __call($name, $arguments)
+    public function __call($name, $arguments):string
     {
         if (0 === strpos($name, 'get')) {
             $key = strtolower(str_replace('get', '', $name));
