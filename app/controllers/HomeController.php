@@ -3,6 +3,7 @@
 namespace StudioVisual\Controllers;
 
 use StudioVisual\Core\Controller;
+use StudioVisual\Models\User;
 
 class HomeController extends Controller
 {
@@ -16,14 +17,17 @@ class HomeController extends Controller
         $user->update(1);
         $user->delete(2);
         $user->insert();
+        $chico = $this->model('User');
+        $chico->name = 'chico';
+        $chico->surname = 'silva';
+        $chico->age = 1;
+        $chico->insert();
         $users = [
-            [
-                'name' => 'chico',
-                'surname' => 'chico'
-            ],
+            $chico,
             [
                 'name' => 'vitao',
-                'surname' => 'vitao',
+                'surname' => 'silva',
+                'age' => 2,
             ],
         ];
         $cidade = 'São Paulo';

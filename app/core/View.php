@@ -55,11 +55,14 @@ FOOTER;
                     return '';
                 },
                 '/@loop:(\w+)(.*+)/s' => function ($placeHolder) {
-                    return implode('', array_map(function ($attribute) use  ($placeHolder){
-                       return  preg_replace_callback('/{{(\w+)}}/', function ($match) use ($attribute) {
-                           return $attribute[$match[1]];
-                       }, $placeHolder[2]);
-                    },$this->data[$placeHolder[1]]));
+                    return implode('', array_map(function ($data) use ($placeHolder) {
+                        return preg_replace_callback('/{{(\w+)}}/', function ($match) use ($data) {
+                            if (is_object($data)) {
+                                return $data->{$match[1]};
+                            }
+                            return $data[$match[1]];
+                        }, $placeHolder[2]);
+                    }, $this->data[$placeHolder[1]]));
                 },
                 '/{{(\w+)\.(\w+)}}/' => function ($placeHolder) {
                     if (is_object($this->data[$placeHolder[1]])) {
