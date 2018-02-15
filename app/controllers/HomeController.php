@@ -14,14 +14,14 @@ class HomeController extends Controller
         $user->name = array_key_exists(0, $param) && $param[0] ? $param[0] : 'Rubens';
         $user->surname = array_key_exists(1, $param) ? $param[1] : 'Takauti';
         $user->age = array_key_exists(2, $param) ? $param[2] : 100;
-        $user->update(1);
-        $user->delete(2);
+//        $user->update(1);
+//        $user->delete(2);
         $user->insert();
         $chico = $this->model('User');
         $chico->name = 'chico';
         $chico->surname = 'silva';
         $chico->age = 1;
-        $chico->insert();
+//        $chico->insert();
         $users = [
             $chico,
             [

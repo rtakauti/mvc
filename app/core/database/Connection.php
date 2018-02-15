@@ -9,7 +9,7 @@ class Connection
     const
         DBNAME = 'mvc',
         USERNAME = 'root',
-        PASSWRD = 'intest';
+        PASSWRD = '123';
     private static $conn;
 
     private function __construct()

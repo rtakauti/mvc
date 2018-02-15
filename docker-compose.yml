@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mvcdb:
+    image: mariadb
+    container_name: mvc_db
+    volumes:
+     - ../../databases/mvc:/var/lib/mysql
+    ports:
+     - "3306"
+    restart: always
+    environment:
+     - MYSQL_DATABASE=mvc
+     - MYSQL_ROOT_PASSWORD=123
+  mvcweb:
+    image: webgriffe/php-apache-base
+    container_name: mvc_web
+    depends_on:
+    - mvcdb
+    volumes:
+    - ./:/var/www/html
+    ports:
+    - "80"
+    links:
+    - mvcdb:mysql
+    restart: always
+    environment:
+    - VIRTUAL_HOST=mvc.local
+    - APACHE_DOC_ROOT=/var/www/html
+    - XDEBUG_ENABLE=1
+    - PHP_TIMEZONE=America/Sao_Paulo
+
+networks:
+  default:
+    external:
+      name: webproxy
+
