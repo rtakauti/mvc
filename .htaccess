@@ -1,3 +1,4 @@
+Options -Indexes
 RewriteEngine On
 
- RewriteRule ^(.*)$ public/index.php?$1 [L]
+RewriteRule ^(.*)$ public/index.php?$1 [L]

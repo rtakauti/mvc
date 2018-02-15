@@ -1,0 +1,30 @@
+@import "../components/components";
+
+header {
+  background-image: linear-gradient(to right bottom, $green, darken($green, 10)),
+  url("/public/dist/images/nature.jpg");
+  background-position: top;
+  background-size: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 50% 100%, 0 75vh);
+  height: 95vh;
+
+  .logo {
+    @include logo;
+  }
+
+  .welcome {
+    position: absolute;
+    @include centralize(50%);
+    span {
+      display: block;
+      color: #fff;
+      font-weight: 200;
+      letter-spacing: 5px;
+      line-height: 1.7;
+      &:last-child {
+        font-size: 10px;
+        font-weight: 400;
+      }
+    }
+  }
+}

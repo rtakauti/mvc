@@ -4,17 +4,41 @@ namespace StudioVisual\Core;
 
 class Route
 {
-    protected $url = [];
+    private
+        $verb,
+        $route;
+
+    public function __construct()
+    {
+        $this->verb = $_SERVER['REQUEST_METHOD'];
+        $this->route = trim($_SERVER['REQUEST_URI'], '/');
+    }
 
     public function get($path, $controller, $method)
     {
-        $url = explode('/', $_SERVER['REQUEST_URI']);
-        $class = '/'.$url[1];
-        unset($url[0]);
-        unset($url[1]);
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && $class === $path && method_exists($object = new $controller, $method)) {
-            call_user_func_array([$object, $method], $url ? array_values($url) : []);
+        if ($this->verb !== 'GET') {
+            return false;
         }
+
+        if (!$this->route) {
+            (new \StudioVisual\Controllers\HomeController)->index('/Rubens/Takauti/100');
+        }
+
+        if (strpos($this->route, $path) !== 0) {
+            return false;
+        }
+
+        (new $controller)->{$method}(str_replace($path, '', $this->route));
+    }
+
+
+    public function post($path, $controller, $method)
+    {
+        if ($this->verb !== 'POST'|| strpos($this->route, $path) !== 0) {
+            return false;
+        }
+
+        (new $controller)->{$method}(str_replace($path, '', $this->route));
     }
 
 }

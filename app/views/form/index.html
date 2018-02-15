@@ -1,0 +1,17 @@
+<form method="post">
+    <label>
+        Nome:
+        <input id="nome" type="text" name="nome">
+    </label>
+    <input id="send" type="submit" value="Enviar">
+</form>
+<script>
+    $('#send').click(function (event) {
+        event.preventDefault();
+        $.post( "/form", function( data ) {
+            console.log(data);
+            $('#nome').val(data.nome);
+        });
+    });
+
+</script>
