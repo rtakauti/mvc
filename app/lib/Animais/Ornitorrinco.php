@@ -1,12 +1,12 @@
 <?php
 
-namespace StudioVisual\Animais;
+namespace StudioVisual\Lib\Animais;
 
 
-use StudioVisual\Contracts\MamiferoInterface;
-use StudioVisual\Traits\HerbivoroTrait;
-use StudioVisual\Traits\MamiferoTrait;
-use StudioVisual\Traits\OviparoTrait;
+use StudioVisual\Lib\Contracts\MamiferoInterface;
+use StudioVisual\Lib\Traits\HerbivoroTrait;
+use StudioVisual\Lib\Traits\MamiferoTrait;
+use StudioVisual\Lib\Traits\OviparoTrait;
 
 class Ornitorrinco extends AnimalAbstract implements MamiferoInterface
 {

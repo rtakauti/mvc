@@ -7,7 +7,7 @@ use StudioVisual\Lib\Animais\CachorroDomestico;
 
 class AnimalController extends Controller
 {
-    public function name(string $param = '')
+    public function name($param = '')
     {
         $param = explode('/', substr($param, 1));
         $pingo = new CachorroDomestico();
