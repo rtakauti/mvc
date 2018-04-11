@@ -1,10 +1,10 @@
 <?php
 
 
-namespace StudioVisual\Animais;
+namespace StudioVisual\Lib\Animais;
 
 
-use StudioVisual\Traits\SelvagemTrait;
+use StudioVisual\Lib\Traits\SelvagemTrait;
 
 final class Mabeco extends CaninoAbstract
 {

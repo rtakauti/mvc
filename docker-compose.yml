@@ -4,10 +4,10 @@ services:
     image: mariadb
     container_name: mvc_db
     volumes:
-     - ../../databases/mvc:/var/lib/mysql
+     - ../../dbs/mvc:/var/lib/mysql
     ports:
      - "3306"
-    restart: always
+#    restart: always
     environment:
      - MYSQL_DATABASE=mvc
      - MYSQL_ROOT_PASSWORD=123
@@ -22,7 +22,7 @@ services:
     - "80"
     links:
     - mvcdb:mysql
-    restart: always
+#    restart: always
     environment:
     - VIRTUAL_HOST=mvc.local
     - APACHE_DOC_ROOT=/var/www/html

@@ -1,10 +1,10 @@
 <?php
 
-namespace StudioVisual\Animais;
+namespace StudioVisual\Lib\Animais;
 
 
-use StudioVisual\Traits\HerbivoroTrait;
-use StudioVisual\Traits\OviparoTrait;
+use StudioVisual\Lib\Traits\HerbivoroTrait;
+use StudioVisual\Lib\Traits\OviparoTrait;
 
 class Pato extends AnimalAbstract
 {
